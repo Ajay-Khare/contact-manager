@@ -1,10 +1,10 @@
 import './App.css';
-
+import LoginPage from './components/Login/login';
+import RegisterPage from './components/Register/register';
 function App() {
   return (
     <div>
-      <h1>Contact Manager</h1>
-      
+      <RegisterPage/>
     </div>
   );
 }
