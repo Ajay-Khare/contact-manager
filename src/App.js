@@ -1,9 +1,9 @@
 import './App.css';
-
+import Contact from './components/contacts/Contact';
 function App() {
   return (
     <div>
-      <h1>Contact Manager</h1>
+      <Contact/>
       
     </div>
   );

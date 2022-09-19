@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Titillium Web';
+}
+.sidesection{
+    width: 231px;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+}
+.content-container{
+    height:85%;
+    background-color: #CEF3FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.h1-tag{
+    color:#0884FF;
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 50px;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20%;
+}
+
+.dashboard p{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    margin-left: 5%;
+}
+.total-contacts{
+    width: 183px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    background-color: #2DA5FC;
+    margin-top: 14%;
+    border-radius: 6px;
+    position: relative;
+}
+.total-contacts::after{
+    content: '';
+    position: absolute;
+    right:15px;
+    width: 2px;
+    height: 30px;
+    background-color:white;
+}
+.total-contacts p{
+    margin-left: 5%;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: white;
+
+}
+.logout-container{
+    height:15%;
+    /* margin-top: 2%; */
+    border-top: 4px solid white;
+    background-color: #CEF3FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.logout{
+    display: flex;
+    flex-direction: row;
+}
+.logout p{
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 18px
+}
