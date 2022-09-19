@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Sidebar from './Sidebar'
 function Contact() {
   return (
-    <div>Contact</div>
+    <div>
+      <Sidebar/>
+    </div>
   )
 }
 

@@ -4,7 +4,7 @@ import RegisterPage from './components/Register/register';
 function App() {
   return (
     <div>
-      <RegisterPage/>
+      <Contact/>
     </div>
   );
 }
