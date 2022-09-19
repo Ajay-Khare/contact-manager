@@ -1,9 +1,13 @@
 import React from 'react'
-import Header from './Header'
+import Sidebar from './Sidebar'
+
+import './contacts.css'
 function Contact() {
   return (
-    <div>
-        <Header/>
+    <div className='main_conatiner'>
+    
+      <Sidebar/>
+     
     </div>
   )
 }
