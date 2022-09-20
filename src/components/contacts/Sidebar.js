@@ -3,7 +3,7 @@ import userimg from '../Images/user.png'
 import "./Sidebar.css"
 import './Header.css'
 import {useNavigate} from 'react-router-dom'
-
+import ContactList from '../ContactList/ContactList'
 
 function Sidebar() {
     const [user,setuser]=useState('')
@@ -30,7 +30,7 @@ function Sidebar() {
                         <h1>LOGO</h1>
                     </div>
                     <div className="dashboard">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-layout-dashboard" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-layout-dashboard" width="28" height="28" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 4h6v8h-6z"></path>
                             <path d="M4 16h6v4h-6z"></path>
@@ -63,6 +63,7 @@ function Sidebar() {
                     </div>
                 </div>
             </div>
+        <div className="right_container"> 
             <header className='header_component'>
             <div className='header_text'>
                 <p>Total Contacts</p>
@@ -85,7 +86,10 @@ function Sidebar() {
                 </div>
 
             </div>
+
         </header>
+        <ContactList/>
+    </div>
         </main>
     )
 }

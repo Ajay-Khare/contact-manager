@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from './Sidebar'
 
+
 import './contacts.css'
 function Contact() {
   return (

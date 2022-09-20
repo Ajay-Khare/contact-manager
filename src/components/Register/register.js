@@ -92,12 +92,10 @@ const RegisterPage = () => {
                                     length && <span style={{ position: "absolute", top: 35, right: 10, fontSize: "11px", color: 'tomato' }} >Password too weak minimum length(6)</span>
                                 }
                             </div>
-                            <br />
                             <div style={{ position: "relative" }} >
                                 <input type="password" style={styleObj} name="cinfpassword" value={data.cinfpassword} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} className="password" placeholder="Confirm Password" required />
                                 {match && <span style={{ position: "absolute", right: 13, top: 38, fontSize: "12px", color: "tomato" }}>Password not match</span>}
                             </div>
-                            <br />
                             <button>Sign Up</button>
                         </form>
                     </div>

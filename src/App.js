@@ -4,6 +4,7 @@ import Contact from './components/contacts/Contact';
 
 import LoginPage from './components/Login/login';
 import RegisterPage from './components/Register/register';
+import ContactList from './components/ContactList/ContactList';
 
 function App() {
 
@@ -11,6 +12,9 @@ function App() {
    <BrowserRouter>
       <Routes>
           <Route path='/' element={<LoginPage/>}/>
+
+  
+        <Route path="/contactlist" element={<ContactList/>}/>
 
           <Route path='/contacts' element={<Contact/>}/>
            <Route path='/signup' element={<RegisterPage />}/>

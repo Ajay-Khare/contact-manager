@@ -55,6 +55,7 @@ const LoginPage = () => {
                         <img src={dots} alt="" />
                     </div>
                     <div className="middleContainer">
+
                         <h1 className="logo">Logo</h1>
                         <p className="para">Enter your credentials to access your account</p>
                         <form className="loginForm" onSubmit={(e)=>submitData(e)}>
@@ -75,7 +76,6 @@ const LoginPage = () => {
                                     </svg> </span>
                                 }
                             </div>
-                            <br />
                             <button>Sign In</button>
                         </form>
                         <button onClick={() => navigate('/signup')} className="sign-up">Sign Up</button>
