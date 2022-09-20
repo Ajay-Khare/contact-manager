@@ -1,14 +1,51 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import upperCircle from "./images/Ellipse-31.png";
 import lowerCircle from "./images/Ellipse-32.png";
 import dots from "./images/Group-695.png";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 import "./login.css"
 
 const LoginPage = () => {
-    const [view, setView] = useState(false)
-
     const navigate = useNavigate()
+
+    const [view, setView] = useState(false)
+    const [data,setData]=useState({
+        email:"",
+        password:""
+    })
+
+    const submitData=(e)=>{
+        e.preventDefault()
+        // console.log(data)
+
+        fetch("http://localhost:8080/login",{
+            method:"post",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                email:data.email,
+                password:data.password
+            })
+        }).then(res=>res.json()).then(data=>{
+            if(data.message.err) console.log(data.mesaage)
+            if(data.message==="Incorrect Password"){
+                toast.error("Incorrect Password",{ position: toast.POSITION.BOTTOM_CENTER })
+            }
+            if(data.message==="USER NOT REGISTERED"){
+                toast.error("User not Registered",{ position: toast.POSITION.TOP_CENTER })
+            }
+            if(data.message==="Success"){
+                sessionStorage.setItem('accessToken',data.token)
+                navigate('/contacts')
+            }
+        })
+    }
+
+
     return (
         <>
             <div className="container">
@@ -20,17 +57,17 @@ const LoginPage = () => {
                     <div className="middleContainer">
                         <h1 className="logo">Logo</h1>
                         <p className="para">Enter your credentials to access your account</p>
-                        <form className="loginForm" action="">
-                            <input type="text" name="" id="" className="user-id" placeholder="User ID" required />
+                        <form className="loginForm" onSubmit={(e)=>submitData(e)}>
+                            <input type="email" name="email" value={data.email} onChange={(e)=>setData({...data,[e.target.name]:e.target.value})} id="" className="user-id" placeholder="User ID" required />
                             <br />
                             <div style={{ position: "relative" }}>
-                                <input type={view ? "text" : "password"} className="password" placeholder="Password" required />
+                                <input type={view ? "text" : "password"} name="password" value={data.password} onChange={(e)=>setData({...data,[e.target.name]:e.target.value})} className="password" placeholder="Password" required />
                                 {
-                                    view ? <span onClick={() => setView(!view)} style={{ position: "absolute", right: 19, top: 6 }} ><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="19" height="19" viewBox="0 0 24 24" stroke-width="2" stroke="lightGrey" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    view ? <span onClick={() => setView(!view)} style={{ position: "absolute", right: 19, top: 6 }} ><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-eye" width="19" height="19" viewBox="0 0 24 24" strokeWidth="2" stroke="lightGrey" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <circle cx="12" cy="12" r="2"></circle>
                                         <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7"></path>
-                                    </svg> </span> : <span onClick={() => setView(!view)} style={{ position: "absolute", right: 19, top: 6 }}> <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye-off" width="19" height="19" viewBox="0 0 24 24" stroke-width="2" stroke="lightGrey" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    </svg> </span> : <span onClick={() => setView(!view)} style={{ position: "absolute", right: 19, top: 6 }}> <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-eye-off" width="19" height="19" viewBox="0 0 24 24" strokeWidth="2" stroke="lightGrey" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                         <line x1="3" y1="3" x2="21" y2="21"></line>
                                         <path d="M10.584 10.587a2 2 0 0 0 2.828 2.83"></path>
@@ -49,6 +86,7 @@ const LoginPage = () => {
                 </div>
                 <img className="lowerCornerCircle" src={lowerCircle} alt="" />
             </div>
+            <ToastContainer/>
         </>
     )
 }

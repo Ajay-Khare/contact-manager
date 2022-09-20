@@ -6,13 +6,15 @@ import LoginPage from './components/Login/login';
 import RegisterPage from './components/Register/register';
 
 function App() {
+
   return (
    <BrowserRouter>
       <Routes>
           <Route path='/' element={<LoginPage/>}/>
-          <Route path='/signup' element={<RegisterPage/>}/>
-          <Route path='/contacts' element={<Contact/>}/>
 
+          <Route path='/contacts' element={<Contact/>}/>
+           <Route path='/signup' element={<RegisterPage />}/>
+        
       </Routes>
    </BrowserRouter>
   );
