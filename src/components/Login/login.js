@@ -38,7 +38,6 @@ const LoginPage = () => {
                                     </svg> </span>
                                 }
                             </div>
-                            <br />
                             <button>Sign In</button>
                         </form>
                         <button onClick={() => navigate('/signup')} className="sign-up">Sign Up</button>
