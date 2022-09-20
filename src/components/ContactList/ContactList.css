@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+
+* {
+    font-family: "Titillium Web";
+}
+
 .cont-main-container {
     width: 100vw;
     height: 100vh;
@@ -5,14 +11,18 @@
     justify-content: center;
     flex-direction: column;
     background-color: white;
-    align-content: center;
+    align-items: center;
+
+}
+
+.cont-main-container .contContainer .cont-header span {
+    font-weight: bold;
 }
 
 .contContainer {
     margin-top: 1%;
     width: 98.5%;
     height: 87%;
-    /* border: 1px solid black; */
     background-color: #e1e1e1a0;
     border-radius: 10px;
     padding: 10px;
@@ -28,11 +38,9 @@
     padding: 3px;
     width: 100px;
     display: inline-block;
-    /* margin-top: 10px; */
     text-align: center;
+
 }
-
-
 
 .cont-header .delete,
 .import,
@@ -49,20 +57,31 @@
     text-align: center;
 }
 
+.cont-header .delete span{
+    margin-left: 8px;
+}
+
+.cont-header .import span {
+    margin-left: 8px;
+}
+
+.cont-header .export span {
+    margin-left: 8px;
+}
 
 .icon {
     margin-bottom: -5px;
 
 }
 
+
+/* ------table------- */
+
 .tableHeading {
     border-radius: 6px;
     margin-top: 5px;
-    /* padding: 9px; */
     font-size: 14px;
 
-    /* display: grid; */
-    /* grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr 1fr 1fr 1fr; */
 }
 
 .tableHeading table {
@@ -70,21 +89,14 @@
     text-align: left;
     padding: 5px;
     border-collapse: collapse;
-        
-    /* border: 1px solid black; */
-
-
 }
 
 .tableHeading table tr th {
     background-color: #B2DFFF;
     padding: 5px;
     border: none;
-}
-
-
-.tableHeading table thead {
-    background-color: #B2DFFF;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .tableHeading table .icon {
@@ -95,14 +107,43 @@
 
 .tableHeading table tr td {
     padding: 5px;
-    padding-left: 18px;
+    padding-left: 13px;
+    font-weight: 600;
 }
-.tableHeading table tr:nth-child(odd){
+
+
+.tableHeading table tr:nth-child(odd) {
     background-color: white;
-    
-    
 }
-/* .tableHeading */
+
+tr:first-child {
+    padding-left: 0;
+}
+
+.tableHeading table tr td:last-child {
+    position: relative;
+}
+
+.tableHeading table tr td:last-child .icon1 {
+    position: absolute;
+    top: 3px;
+    left: 45px;
+}
+
+.tableHeading table tr td:last-child .icon2 {
+    position: absolute;
+    top: 3px;
+}
+
+.tableHeading table tr td:first-child {
+    padding-left: 5px;
+
+}
+
+.tableHeading table tr td:first-child span {
+    padding-left: 5px;
+    font-weight: 600;
+}
 
 
 /* footer */
@@ -115,40 +156,12 @@
     font-size: 14px;
     color: lightgrey;
 }
-tr:first-child{
-    padding-left: 0;
-}
-.cont-footer-container .pages span:active{
+
+
+.cont-footer-container .pages span:active {
     color: red;
 }
+
 .cont-footer-container .pages span {
     margin: 3px;
-}
-
-
-.tableHeading table tr td:last-child{
-    /* margin: auto;
-    padding-left: 0; */
-    position: relative;
-}
-
-.tableHeading table tr td:last-child .icon1{
-    /* margin: auto;
-    padding-left: 0; */
-    position: absolute;
-    top: 3px;
-    left: 45px;
-}
-
-.tableHeading table tr td:last-child .icon2 {
-    position: absolute;
-    top: 3px;
-}
-
-.tableHeading table tr td:first-child{
-    padding-left: 5px;
-}
-
-.tableHeading table tr td:first-child span{
-    padding-left: 5px;
 }

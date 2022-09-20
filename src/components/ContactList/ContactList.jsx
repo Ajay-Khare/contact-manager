@@ -2,10 +2,7 @@ import React from "react";
 import "./ContactList.css"
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-
 import list from "./images/list.png"
-import calender from "./images/calender.png"
-import arrow from "./images/downArrow.png"
 
 const ContactList = () => {
     const isCheck = [2, 4, 5];
@@ -16,7 +13,7 @@ const ContactList = () => {
                     <div className="cont-header">
 
                         <div className="selectDate">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-event" width="15" height="18" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-event" width="15" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <rect x="4" y="5" width="16" height="16" rx="2"></rect>
                                 <line x1="16" y1="3" x2="16" y2="7"></line>
@@ -27,17 +24,17 @@ const ContactList = () => {
                             <span>
                                 Select Date
                             </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </div>
 
                         <div className="filter">
-                            <img src={list} style={{ width: 18, height: 13, marginBottom: -2, marginTop: 0, marginLeft: 0 }} alt="" className="filter" />
-                            <span >Filter  |</span>
+                            <img src={list} style={{ width: 18, height: 15, marginBottom: -3, marginTop: 0, marginLeft: 0 }} alt="" className="filter" />
+                            <span >Filter  | </span>
                             {/* <img src={arrow} style={{ width: 22, height: 18, marginBottom: -6, zIndex: -1, marginLeft:-10}} alt="" className="filter" /> */}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -85,7 +82,7 @@ const ContactList = () => {
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" key={"hello"} className="checkbox" onClick={(e) => {
+                                        <input type="checkbox" key={"hello"} id="true" className="checkbox" onClick={(e) => {
                                             console.log(e.target.value)
                                         }} name="" /> Name
                                     </th>
@@ -157,7 +154,7 @@ const ContactList = () => {
 
                                 </td>
                             </tr>
-                            
+
                             <tr>
                                 <td>
                                     <input type="checkbox" />
