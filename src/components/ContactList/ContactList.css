@@ -2,16 +2,20 @@
 
 * {
     font-family: "Titillium Web";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .cont-main-container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    
     display: flex;
     justify-content: center;
     flex-direction: column;
     background-color: white;
     align-items: center;
+    padding: 20px;
 
 }
 
@@ -20,12 +24,13 @@
 }
 
 .contContainer {
-    margin-top: 1%;
-    width: 98.5%;
-    height: 87%;
-    background-color: #e1e1e1a0;
-    border-radius: 10px;
+    
     padding: 10px;
+    width: 100%;
+  height: 100%;
+    background-color: #FBFBFB;
+    border-radius: 10px;
+   
 }
 
 .cont-header .selectDate,
@@ -93,10 +98,11 @@
 
 .tableHeading table tr th {
     background-color: #B2DFFF;
-    padding: 5px;
+    padding: 15px;
     border: none;
     font-size: 15px;
     font-weight: 600;
+    color: #38322C;
 }
 
 .tableHeading table .icon {
@@ -106,34 +112,44 @@
 }
 
 .tableHeading table tr td {
-    padding: 5px;
-    padding-left: 13px;
+    padding: 14px;
+    padding-left: 27px;
     font-weight: 600;
 }
 
 
-.tableHeading table tr:nth-child(odd) {
-    background-color: white;
+.tableHeading table tr:nth-child(even) {
+    background-color: #B2DFFF4F;
 }
 
 tr:first-child {
-    padding-left: 0;
+    padding-left: 0px;
+}
+.tableHeading table tbody tr td:first-child {
+    padding-left: 14px;
 }
 
-.tableHeading table tr td:last-child {
-    position: relative;
+.tableHeading table tbody tr td:last-child {
+    /* position: relative; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left:10px;
+    padding-top: 11px;
+    padding-bottom: 0;
 }
 
-.tableHeading table tr td:last-child .icon1 {
+/* .tableHeading table tr td:last-child .icon1 {
     position: absolute;
-    top: 3px;
-    left: 45px;
+    top: 9px;
+    left: 60px;
 }
 
 .tableHeading table tr td:last-child .icon2 {
     position: absolute;
-    top: 3px;
-}
+    top:9px;
+ 
+} */
 
 .tableHeading table tr td:first-child {
     padding-left: 5px;
@@ -164,4 +180,8 @@ tr:first-child {
 
 .cont-footer-container .pages span {
     margin: 3px;
+}
+
+.hovering:hover{
+    color: #2DA5FC;
 }

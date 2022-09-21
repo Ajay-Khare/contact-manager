@@ -122,7 +122,7 @@ const ContactList = () => {
                                         <input type="checkbox" key={"hello"} id="true" className="checkbox" name="selectAll" onChange={handleChange} /> Name
                                     </th>
                                     <th>| Designation
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="#605750" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M9 18l3 3l3 -3"></path>
                                             <path d="M12 15v6"></path>
@@ -131,7 +131,7 @@ const ContactList = () => {
                                         </svg>
                                     </th>
                                     <th>| Company
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="#605750" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M9 18l3 3l3 -3"></path>
                                             <path d="M12 15v6"></path>
@@ -140,7 +140,7 @@ const ContactList = () => {
                                         </svg>
                                     </th>
                                     <th>| Industry
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="#605750" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M9 18l3 3l3 -3"></path>
                                             <path d="M12 15v6"></path>
@@ -180,29 +180,30 @@ const ContactList = () => {
                                             <td>{user.phone}</td>
                                             <td>{user.country}</td>
                                             <td >
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <span>  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-pencil icon2" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#0884FF" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                                </svg></span>
+                                                <span> <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash icon1" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#F81D1D" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <line x1="4" y1="7" x2="20" y2="7"></line>
                                                     <line x1="10" y1="11" x2="10" y2="17"></line>
                                                     <line x1="14" y1="11" x2="14" y2="17"></line>
                                                     <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
                                                     <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                </svg>
+                                                </svg></span>
 
                                             </td>
                                         </tr>
                                     )
                                 })}
                             </tbody>
-                        </table>
+                        </table >
 
-                    </div>
-                </div>
+                    </div >
+                </div >
+                
                 <div className="cont-footer-container">
                     <div className="pages">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="18" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -220,7 +221,7 @@ const ContactList = () => {
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
