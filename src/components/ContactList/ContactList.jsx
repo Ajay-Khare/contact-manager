@@ -10,10 +10,6 @@ import { useEffect } from "react";
 const ContactList = () => {
     const rawData = [
         { name: "ajay", designation: "student", company: "10x", industry: "Construction", email: "ajay@gmail.com", phone: "0123456789", country: "IN", checked: false },
-        { name: "pradeep", designation: "student", company: "10x", industry: "IT", email: "pradeep@gmail.com", phone: "0123456789", country: "IN", checked: false },
-        { name: "kushal", designation: "student", company: "10x", industry: "Construction", email: "kushal@gmail.com", phone: "0123456789", country: "IN", checked: false },
-        { name: "rahul", designation: "student", company: "10x", industry: "IT", email: "rahul@gmail.com", phone: "0123456789", country: "IN", checked: false },
-        { name: "sudhir", designation: "student", company: "10x", industry: "IT", email: "sudhir@gmail.com", phone: "0123456789", country: "IN", checked: false }
     ]
     const [contacts, setContacts] = useState(rawData)
     const handleChange = (e) => {
