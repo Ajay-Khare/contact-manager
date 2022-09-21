@@ -3,9 +3,46 @@ import "./ContactList.css"
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import list from "./images/list.png"
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ContactList = () => {
-    const isCheck = [2, 4, 5];
+    const rawData = [
+        { name: "ajay", designation: "student", company: "10x", industry: "Construction", email: "ajay@gmail.com", phone: "0123456789", country: "IN", checked: false },
+        { name: "pradeep", designation: "student", company: "10x", industry: "IT", email: "pradeep@gmail.com", phone: "0123456789", country: "IN", checked: false },
+        { name: "kushal", designation: "student", company: "10x", industry: "Construction", email: "kushal@gmail.com", phone: "0123456789", country: "IN", checked: false },
+        { name: "rahul", designation: "student", company: "10x", industry: "IT", email: "rahul@gmail.com", phone: "0123456789", country: "IN", checked: false },
+        { name: "sudhir", designation: "student", company: "10x", industry: "IT", email: "sudhir@gmail.com", phone: "0123456789", country: "IN", checked: false }
+    ]
+    const [contacts, setContacts] = useState(rawData)
+    const handleChange = (e) => {
+        const { name, checked } = e.target
+        if (e.target.name === "selectAll") {
+            if (e.target.checked) {
+                const temp = contacts.map((user) => {
+                    user.checked = true
+                    return user
+                })
+                setContacts(temp)
+            }
+            else {
+                const temp = contacts.map((user) => {
+                    user.checked = false
+                    return user
+                })
+                setContacts(temp)
+            }
+        }
+        else {
+            const temp = contacts.map((user) => {
+                if (user.name === name) {
+                    user["checked"] = !user["checked"]
+                }
+                return user
+            })
+            setContacts(temp)
+        }
+    }
     return (
         <>
             <div className="cont-main-container">
@@ -33,7 +70,6 @@ const ContactList = () => {
                         <div className="filter">
                             <img src={list} style={{ width: 18, height: 15, marginBottom: -3, marginTop: 0, marginLeft: 0 }} alt="" className="filter" />
                             <span >Filter  | </span>
-                            {/* <img src={arrow} style={{ width: 22, height: 18, marginBottom: -6, zIndex: -1, marginLeft:-10}} alt="" className="filter" /> */}
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -72,19 +108,17 @@ const ContactList = () => {
                             </svg>
                             <span>Delete</span>
                         </div>
-
-
-
-
                     </div>
+
+                    {/* ----------------    Table    -------------------------- */}
+
                     <div className="tableHeading">
                         <table>
+
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" key={"hello"} id="true" className="checkbox" onClick={(e) => {
-                                            console.log(e.target.value)
-                                        }} name="" /> Name
+                                        <input type="checkbox" key={"hello"} id="true" className="checkbox" name="selectAll" onChange={handleChange} /> Name
                                     </th>
                                     <th>| Designation
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -120,131 +154,50 @@ const ContactList = () => {
                                 </tr>
                             </thead>
 
-                            {/* table data */}
+                            {/*-------------------- table data -------------------------------*/}
 
-                            <tr>
-                                <td>
-                                    <input type="checkbox" isChecked={isCheck.includes(5)} onClick={(e) => {
-                                        console.log(e)
-                                    }} key={"hello"} className="checkbox" />
-                                    <span>Peter</span>
-                                </td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <Tippy content="ajay">
-                                    <td>email</td>
-                                </Tippy>
-                                <td>Peter</td>
-                                <td >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                    </svg>
+                            <tbody>
+                                {contacts.map((user) => {
+                                    return (
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox"
+                                                    className="checkbox"
+                                                    name={user.name}
+                                                    onChange={handleChange}
+                                                    checked={user.checked}
+                                                />
+                                                <span>{user.name}</span>
+                                            </td>
 
-                                </td>
-                            </tr>
+                                            <td>{user.designation} </td>
+                                            <td>{user.company}</td>
+                                            <td>{user.industry}</td>
+                                            <Tippy content="ajay">
+                                                <td>{user.email}</td>
+                                            </Tippy>
+                                            <td>{user.phone}</td>
+                                            <td>{user.country}</td>
+                                            <td >
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                                </svg>
 
-                            <tr>
-                                <td>
-                                    <input type="checkbox" />
-                                    <span>Peter</span>
-                                </td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <Tippy content="hello">
-                                    <td>email</td>
-                                </Tippy>
-                                <td>Peter</td>
-                                <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                    </svg>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <input type="checkbox" />
-                                    <span>Peter</span>
-                                </td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <Tippy content="hello">
-                                    <td>email</td>
-                                </Tippy>
-                                <td>Peter</td>
-                                <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                    </svg>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <input type="checkbox" />
-                                    <span>Peter</span>
-                                </td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <td>Griffin</td>
-                                <td>Peter</td>
-                                <Tippy content="hello">
-                                    <td>email</td>
-                                </Tippy>
-                                <td>Peter</td>
-                                <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash icon1" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#F81D1D" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <line x1="4" y1="7" x2="20" y2="7"></line>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil icon2" width="17" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#0884FF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                    </svg>
-                                </td>
-                            </tr>
-
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
                         </table>
 
                     </div>
