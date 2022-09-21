@@ -6,6 +6,7 @@ import list from "./images/list.png"
 import { useState } from "react";
 import { useEffect } from "react";
 
+
 const ContactList = () => {
     const rawData = [
         { name: "ajay", designation: "student", company: "10x", industry: "Construction", email: "ajay@gmail.com", phone: "0123456789", country: "IN", checked: false },
