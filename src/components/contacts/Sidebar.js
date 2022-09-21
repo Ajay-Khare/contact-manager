@@ -27,7 +27,7 @@ function Sidebar() {
             <div className="sidesection">
                 <div className="content-container">
                     <div className="h1-tag">
-                        <h1>LOGO</h1>
+                        <h1>Logo</h1>
                     </div>
                     <div className="dashboard">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-layout-dashboard" width="28" height="28" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
