@@ -436,7 +436,7 @@ const ContactList = ({ setlist, show }) => {
                                                 <td>{user.country}</td>
                                                 <td>
 
-                                                    <span style={{ display: "inline", padding: "2px" }} onClick={(e) => deleteSingleData(e)} >
+                                                    <span style={{ display: "inline", padding: "2px", cursor: "pointer" }} onClick={(e) => deleteSingleData(e)} >
 
                                                         <svg id={user._id}
                                                             xmlns="http://www.w3.org/2000/svg"
