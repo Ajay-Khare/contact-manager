@@ -15,12 +15,13 @@
     width:100vw;
     height:100vh;
     background-color: rgba(22, 22, 22, 0.5);
+    text-align: center;
 }
 
 .short-container{
    
-    height:300px;
-    width:300px;
+    height:280px;
+    width:280px;
     background-color: white;
     text-align: center;
     display: flex;
@@ -30,6 +31,6 @@
     border-radius: 10px;
 }
 .short-container .img{
-    width:300px;
-    height: 260px;
+    width:280px;
+    height: 280px;
 }

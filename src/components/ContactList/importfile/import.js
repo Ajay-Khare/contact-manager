@@ -43,6 +43,7 @@ function ImportFile({
     reader.onload = function (e) {
       const text = e.target.result;
       const data = processCSV(text);
+
       // console.log(data);
       if (data) {
         fetch("http://localhost:8080/contact/add", {
@@ -54,9 +55,9 @@ function ImportFile({
           body: JSON.stringify(data),
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+          .then((datas) => {
             setren(!ren);
+            data = [];
             setimportDone(true);
           });
       }
@@ -71,8 +72,8 @@ function ImportFile({
 
         <Upload.Dragger
           listType="picture"
-          action={"http://localhost:8080/contact/add"}
           accept=".csv"
+          action={"http://localhost:8080/contact/add"}
           beforeUpload={(file) => {
             // console.log(file);
             setImportData(file);
