@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from "react";
 import ImportFile from '../ContactList/importfile/import'
 import DeleteFile from './deletefile/Delete'
+import ImportedFile from './AfterImport/imported'
+import DeletedFile from './AfterDelete/delete2'
 
 const ContactList = ({ setlist, show }) => {
     const [showMyModal, setShowMyModel] = useState(false)
@@ -19,11 +21,9 @@ const ContactList = ({ setlist, show }) => {
     const [pageNo, setpageNo] = useState(1)
     const [ren, setren] = useState(false);
     const [deleteArray, setdeleteArray] = useState([])
-    const [appState, changeState] = useState({
-        activeObject: 1,
-        objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    })
-
+    const [importDone, setimportDone] = useState(false)
+    const [appState, changeState] = useState({ activeObject: 1, objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] })
+    const [afterDelete, setafterDelete] = useState(false)
 
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const ContactList = ({ setlist, show }) => {
                 "accessToken": sessionStorage.getItem('accessToken')
             }
         }).then(res => res.json()).then(data => {
-            // console.log(data)
+
 
             if (data.message !== "jwt malformed") {
                 setdata(data)
@@ -70,6 +70,7 @@ const ContactList = ({ setlist, show }) => {
                     setShowModel(!showModel)
                     setdeleteArray([])
                     setChecked(true)
+                    setafterDelete(true)
                 }
             })
         }
@@ -166,7 +167,8 @@ const ContactList = ({ setlist, show }) => {
                             <span  >Import</span>
 
                         </div>
-                        <ImportFile onClose={handleOnClose} setShowMyModel={setShowMyModel} visible={showMyModal} setren={setren} ren={ren} />
+                        <ImportFile onClose={handleOnClose} setShowMyModel={setShowMyModel} visible={showMyModal} setren={setren} ren={ren} setimportDone={setimportDone} />
+                        <ImportedFile visible={importDone} setimportDone={setimportDone} ></ImportedFile>
                         <div onClick={() => deleteArray.length !== 0 ? setShowModel(!showModel) : null} style={{ cursor: 'pointer' }} className="delete">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" width="15" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -180,7 +182,7 @@ const ContactList = ({ setlist, show }) => {
 
                         </div>
                         <DeleteFile deleteData={deleteData} setShowModel={setShowModel} showModel={showModel} visible={showModel} />
-
+                        <DeletedFile visible={afterDelete} setafterDelete={setafterDelete} />
                     </div>
 
                     {/* ----------------    Table    -------------------------- */}
@@ -245,12 +247,12 @@ const ContactList = ({ setlist, show }) => {
                                             <td className="inputname">
                                                 <input type="checkbox"
                                                     className="checkbox"
-                                                    name={user._id}s
+                                                    name={user._id} s
                                                     onChange={handleChange}
                                                     value={user._id}
                                                     checked={!checked ? user.id : false}
 
-                                                    onClick={() => checked ? setChecked(!checked):null}
+                                                    onClick={() => checked ? setChecked(!checked) : null}
                                                 />
                                                 <span>{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</span>
                                             </td>

@@ -12,18 +12,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width:100vw;
+    width:100%;
     height:100vh;
-    background-color:rgba(39, 38, 38, 0.4);
+    background-color:rgba(39, 38, 38, 0.5);
 
     
    
 }
 
 .short-container{
-   
-    height:auto;
-    width:280px;
+   padding: 20px;
+    height:400px;
+ 
     background-color: white;
     text-align: center;
     display: flex;

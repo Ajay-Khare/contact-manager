@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Upload } from "antd";
 import "./import.css";
 
-function ImportFile({ visible, onClose, setShowMyModel, setren, ren }) {
+function ImportFile({
+  visible,
+  onClose,
+  setShowMyModel,
+  setren,
+  ren,
+  setimportDone,
+}) {
   const [importData, setImportData] = useState({});
 
   if (!visible) return null;
@@ -50,6 +57,7 @@ function ImportFile({ visible, onClose, setShowMyModel, setren, ren }) {
           .then((data) => {
             console.log(data);
             setren(!ren);
+            setimportDone(true);
           });
       }
     };
