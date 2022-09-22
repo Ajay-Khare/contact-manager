@@ -1,25 +1,115 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import "./ContactList.css"
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import list from "./images/list.png"
-import {NavLink} from 'react-router-dom'
+import filter from "./images/list.png"
+import { useNavigate } from 'react-router-dom'
 import { useState } from "react";
+import ImportFile from '../ContactList/importfile/import'
+import DeleteFile from './deletefile/Delete'
 
-const ContactList = () => {
-    const [contacts,setcontact]=useState([])
-    useEffect(()=>{
-        fetch('http://localhost:8080/contact/all',{
-            method:"get",
-            headers:{
-                "accessToken":sessionStorage.getItem('accessToken')
+const ContactList = ({ setlist, show }) => {
+    const [showMyModal, setShowMyModel] = useState(false)
+    const [showModel, setShowModel] = useState(false)
+    const [checked, setChecked] = useState(false)
+    const handleOnClose = () => setShowMyModel(false)
+    const navigate = useNavigate()
+    const [datas, setdata] = useState([])
+    const [rerender, setRerender] = useState(false)
+    const [pageNo, setpageNo] = useState(1)
+    const [ren, setren] = useState(false);
+    const [deleteArray, setdeleteArray] = useState([])
+    const [appState, changeState] = useState({
+        activeObject: 1,
+        objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+    })
+
+
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/contact/all/?page=${pageNo}`, {
+            method: "get",
+            headers: {
+                "accessToken": sessionStorage.getItem('accessToken')
             }
-        }).then(res=>res.json()).then(data=>{
-            setcontact(data)
+        }).then(res => res.json()).then(data => {
+            // console.log(data)
+
+            if (data.message !== "jwt malformed") {
+                setdata(data)
+                setlist(data)
+            } else {
+                navigate('/')
+            }
         })
-    },[])
+    }, [rerender, pageNo, ren])
+
+    const handleChange = (e) => {
+        if (e.target.checked) {
+            const id = e.target.value
+            setdeleteArray([...deleteArray, { id: id }])
+        }
+        console.log(deleteArray)
+
+    }
+
+    const deleteData = () => {
+        console.log(deleteArray)
+        if (deleteArray) {
+            fetch('http://localhost:8080/contact/delete', {
+                method: "post",
+                headers: {
+                    "accessToken": sessionStorage.getItem('accessToken'),
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(deleteArray)
+            }).then(res => res.json()).then(data => {
+
+                if (data.message === 'success') {
+                    setRerender(!rerender)
+                    setShowModel(!showModel)
+                    setdeleteArray([])
+                    setChecked(true)
+                }
+            })
+        }
+    }
+
+    function toggleActive(index) {
+        changeState({ ...appState, activeObject: appState.objects[index] })
+    }
+    function toggleActiveStyles(index) {
+
+        if (appState.objects[index] === appState.activeObject) {
+            return 'anchor active'
+        } else {
+            return 'anchor inactive'
+        }
+    }
+
+    const pages = (e) => {
+
+        setpageNo(e.target.innerText)
+        toggleActive(e.target.innerText - 1)
+        // console.log(e.target.innerText)
+
+    }
+    const handlepageIncrement = () => {
+        if (datas.length !== 0 && datas.length === 10) setpageNo(pageNo + 1)
+    }
+    const handlepageDecrement = () => {
+        if (pageNo >= 2) {
+            setpageNo(pageNo - 1)
+        }
+    }
+
+
+
     return (
+
         <div className="conatct_container">
+
+
             <div className="cont-main-container">
                 <div className="contContainer">
                     <div className="cont-header">
@@ -43,10 +133,12 @@ const ContactList = () => {
                         </div>
 
                         <div className="filter">
-                            <img src={list} style={{ width: 18, height: 15, marginBottom: -3, marginTop: 0, marginLeft: 0 }} alt="" className="filter" />
+                            <img src={filter} style={{ width: 18, height: 15, marginBottom: -3, marginTop: 0, marginLeft: 0 }} alt="" className="filter" />
                             <span >Filter  | </span>
+
                             {/* <img src={arrow} style={{ width: 22, height: 18, marginBottom: -6, zIndex: -1, marginLeft:-10}} alt="" className="filter" /> */}
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-down downArrow" width="15" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                =
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -63,7 +155,7 @@ const ContactList = () => {
                             <span>Export</span>
                         </div>
 
-                        <div className="import">
+                        <div onClick={() => setShowMyModel(true)} style={{ cursor: "pointer" }} className="import">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrows-down-up" width="15" height="18" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <line x1="17" y1="3" x2="17" y2="21"></line>
@@ -71,9 +163,11 @@ const ContactList = () => {
                                 <line x1="7" y1="21" x2="7" y2="3"></line>
                                 <path d="M20 6l-3 -3l-3 3"></path>
                             </svg>
-                            <span>import</span>
+                            <span  >Import</span>
+
                         </div>
-                        <div className="delete">
+                        <ImportFile onClose={handleOnClose} setShowMyModel={setShowMyModel} visible={showMyModal} setren={setren} ren={ren} />
+                        <div onClick={() => deleteArray.length !== 0 ? setShowModel(!showModel) : null} style={{ cursor: 'pointer' }} className="delete">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" width="15" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <line x1="4" y1="7" x2="20" y2="7"></line>
@@ -82,21 +176,22 @@ const ContactList = () => {
                                 <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
                                 <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
                             </svg>
-                            <span>Delete</span>
+                            <span >Delete</span>
+
                         </div>
-
-
-
+                        <DeleteFile deleteData={deleteData} setShowModel={setShowModel} showModel={showModel} visible={showModel} />
 
                     </div>
+
+                    {/* ----------------    Table    -------------------------- */}
+
                     <div className="tableHeading">
                         <table>
+
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" key={"hello"} id="true" className="checkbox" onClick={(e) => {
-                                            console.log(e.target.value)
-                                        }} name="" /> Name
+                                        <input type="checkbox" key={"hello"} id="true" className="checkbox" name="selectAll" onChange={handleChange} /> Name
                                     </th>
                                     <th>| Designation
                                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrows-move-vertical" width="15" height="15" viewBox="0 0 24 24" strokeWidth="3" stroke="#605750" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -125,79 +220,97 @@ const ContactList = () => {
                                             <path d="M12 3v6"></path>
                                         </svg>
                                     </th>
-                                    <th>| Email</th>
+                                    <th >| Email</th>
                                     <th>| Phone Number</th>
                                     <th>| Country</th>
                                     <th>| Action</th>
                                 </tr>
                             </thead>
 
+
                             {/* table data */}
 
-                            
                             <tbody>
-                            {
-                                contacts.map((contact,i)=>{
+                                {
+                                    datas.filter((val) => {
+                                        if (show === "") {
 
-                                
-                               return <tr key={i}>
-                                    <td>
-                                        <input type="checkbox" />
-                                        <span>{contact.name}</span>
-                                    </td>
-                                    <td>{contact.designation}</td>
-                                    <td>{contact.company}</td>
-                                    <td>{contact.industry}</td>
-                                    <Tippy content={contact.email}>
-                                        <td className="hovering">{contact.email}</td>
-                                    </Tippy>
-                                    <td className="hovering">{contact.mobile}</td>
-                                    <td>{contact.country}</td>
-                                    <td>
-                                        <span>  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-pencil icon2" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#0884FF" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                        </svg></span>
-                                        <span> <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash icon1" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#F81D1D" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <line x1="4" y1="7" x2="20" y2="7"></line>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                        </svg></span>
+                                            return val
+                                        } else if (val.email.includes(show)) {
+                                            return val
+                                        }
+                                    }).map((user, i) => {
 
-                                    </td>
-                                </tr>
-                            })
-                            }
+                                        return <tr key={i}>
+                                            <td className="inputname">
+                                                <input type="checkbox"
+                                                    className="checkbox"
+                                                    name={user._id}s
+                                                    onChange={handleChange}
+                                                    value={user._id}
+                                                    checked={!checked ? user.id : false}
+
+                                                    onClick={() => checked ? setChecked(!checked):null}
+                                                />
+                                                <span>{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</span>
+                                            </td>
+                                            <td>{user.designation.charAt(0).toUpperCase() + user.designation.slice(1)}</td>
+                                            <td>{user.company.charAt(0).toUpperCase() + user.company.slice(1)}</td>
+                                            <td>{user.industry.charAt(0).toUpperCase() + user.industry.slice(1)}</td>
+                                            <Tippy content={user.email}>
+                                                <td className="hovering email">{user.email}</td>
+                                            </Tippy>
+                                            <td className="hovering">{user.mobile}</td>
+                                            <td>{user.country.toUpperCase()}</td>
+                                            <td>
+                                                <span>  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-pencil icon2" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#0884FF" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                                </svg></span>
+                                                <span> <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash icon1" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#F81D1D" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                </svg></span>
+
+                                            </td>
+                                        </tr>
+
+                                    })
+                                }
+
                             </tbody>
+
                         </table>
 
                     </div>
                 </div>
-               
+
             </div>
             <div className="cont-footer-container">
-            <div className="pages">
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="18" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="black" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <polyline points="15 6 9 12 15 18"></polyline>
-                </svg>
-                <NavLink className="anchor first">1</NavLink>
-                <NavLink className="anchor">2</NavLink>
-                <NavLink className="anchor">3</NavLink>
-                <NavLink className="anchor">4</NavLink>
-                <NavLink className="anchor">5</NavLink>
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-right" width="18" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="black" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <polyline points="9 6 15 12 9 18"></polyline>
-                </svg>
-            </div>
+                <div className="pages">
+                    <span style={{ cursor: "pointer" }} onClick={handlepageDecrement}> <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="18" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="black" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="15 6 9 12 15 18"></polyline>
+                    </svg></span>
+
+                    {
+                        appState.objects.map((element, index) => {
+                            return <div style={{ display: "inline-block" }} key={index} onClick={(e) => pages(e)} className={toggleActiveStyles(index)} ><span>{element.id}</span></div>
+                        })
+                    }
+                    <span style={{ cursor: 'pointer' }} onClick={handlepageIncrement}><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-right" width="18" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="black" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg></span>
+                </div>
             </div>
         </div>
+
     )
 }
-
 export default ContactList;

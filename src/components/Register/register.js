@@ -84,7 +84,7 @@ const RegisterPage = () => {
                         <h1 className="logo">Logo</h1>
                         <p className="para">Enter your credentials to access your account</p>
                         <form onSubmit={(e) => submitForm(e)} className="loginForm" action="">
-                            <input type="text" name="email" id="" value={data.email} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} className="user-id" placeholder="Mail ID" required />
+                            <input type="email" name="email" id="" value={data.email} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} className="user-id" placeholder="Mail ID" required />
                             <br />
                             <div style={{ position: "relative" }} >
                                 <input type="password" style={styleObj} name="password" value={data.password} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} className="password" placeholder="Password" required />

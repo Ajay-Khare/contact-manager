@@ -42,21 +42,22 @@
 
 .second_cont .search_container p{
     padding-left: 19px;
-    padding-top: 6px;
+    padding-top: 2px;
 }
 .second_cont .search_container input{
     border: none;
     outline: none;
     background-color: transparent;
-    height: 40px;
+    height: 45px;
     padding-left:27px ;
-    font-size:18px ;
+    font-size:16px ;
 }
 .second_cont .search_container input::placeholder{
     color: rgba(81, 80, 80, 0.8);
-    font-size: 13px;
+    font-size: 15px;
     font-family: 'Titillium Web', sans-serif;
     font-weight: 400;
+    letter-spacing: 1px;
 }
 .second_cont .user_container{
     display: flex;

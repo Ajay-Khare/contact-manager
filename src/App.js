@@ -1,26 +1,19 @@
-import './App.css';
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Contact from './components/contacts/Contact';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Contact from "./components/contacts/Contact";
 
-import LoginPage from './components/Login/login';
-import RegisterPage from './components/Register/register';
-import ContactList from './components/ContactList/ContactList';
+import LoginPage from "./components/Login/login";
+import RegisterPage from "./components/Register/register";
 
 function App() {
-
   return (
-   <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-          <Route path='/' element={<LoginPage/>}/>
-
-  
-        <Route path="/contactlist" element={<ContactList/>}/>
-
-          <Route path='/contacts' element={<Contact/>}/>
-           <Route path='/signup' element={<RegisterPage />}/>
-        
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/contacts" element={<Contact />} />
+        <Route path="/signup" element={<RegisterPage />} />
       </Routes>
-   </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
