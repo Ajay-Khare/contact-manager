@@ -21,7 +21,7 @@ const LoginPage = () => {
         e.preventDefault()
         // console.log(data)
 
-        fetch("http://localhost:8080/login",{
+        fetch("https://contactmanager-10x.herokuapp.com/login",{
             method:"post",
             headers:{
                 "Content-Type":"application/json"

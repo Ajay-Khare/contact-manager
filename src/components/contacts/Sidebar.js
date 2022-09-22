@@ -16,7 +16,7 @@ function Sidebar() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/contact/username", {
+    fetch("https://contactmanager-10x.herokuapp.com/contact/username", {
       method: "get",
       headers: {
         accessToken: sessionStorage.getItem("accessToken"),
@@ -153,7 +153,7 @@ function Sidebar() {
                 placeholder="Search by Email Id....."
               />
             </div>
-            {}
+            { }
             <div className="user_container">
               <h1>
                 <img src={userimg} alt="" />

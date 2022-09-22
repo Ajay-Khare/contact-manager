@@ -34,7 +34,7 @@ const ContactList = ({ setlist, show }) => {
     const [afterDelete, setafterDelete] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/contact/all/?page=${pageNo}`, {
+        fetch(`https://contactmanager-10x.herokuapp.com/contact/all/?page=${pageNo}`, {
             method: "get",
             headers: {
                 accessToken: sessionStorage.getItem("accessToken"),
@@ -61,7 +61,7 @@ const ContactList = ({ setlist, show }) => {
 
     const deleteData = () => {
         if (deleteArray) {
-            fetch("http://localhost:8080/contact/delete", {
+            fetch("https://contactmanager-10x.herokuapp.com/contact/delete", {
                 method: "post",
                 headers: {
                     accessToken: sessionStorage.getItem("accessToken"),
@@ -85,7 +85,7 @@ const ContactList = ({ setlist, show }) => {
         console.log(e.target.id)
         const id = e.target.id
         let data = [{ id: id }]
-        fetch("http://localhost:8080/contact/sdelete", {
+        fetch("https://contactmanager-10x.herokuapp.com/contact/sdelete", {
             method: "post",
             headers: {
                 accessToken: sessionStorage.getItem("accessToken"),

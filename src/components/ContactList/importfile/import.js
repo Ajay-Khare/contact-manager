@@ -46,7 +46,7 @@ function ImportFile({
 
       // console.log(data);
       if (data) {
-        fetch("http://localhost:8080/contact/add", {
+        fetch("https://contactmanager-10x.herokuapp.com/contact/add", {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function ImportFile({
         <Upload.Dragger
           listType="picture"
           accept=".csv"
-          action={"http://localhost:8080/contact/add"}
+          action={"https://contactmanager-10x.herokuapp.com/contact/add"}
           beforeUpload={(file) => {
             // console.log(file);
             setImportData(file);

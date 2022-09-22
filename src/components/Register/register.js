@@ -31,7 +31,7 @@ const RegisterPage = () => {
             if (length) {
                 return
             }
-            fetch('http://localhost:8080/register', {
+            fetch('https://contactmanager-10x.herokuapp.com/register', {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,14 +43,14 @@ const RegisterPage = () => {
             }).then(res => res.json()).then(data => {
 
                 if (data.message === 'email is already registered') {
-                    
+
                     return toast.error("You are already registered. Please log in.", { position: toast.POSITION.BOTTOM_CENTER })
                 }
                 navigate('/')
             })
         }
     }
-    if (data.password.length >= 1 && length !== true) {  
+    if (data.password.length >= 1 && length !== true) {
         if (data.password.length < 6 || data.password.length === "") {
             setLength(!length)
         }
@@ -61,7 +61,7 @@ const RegisterPage = () => {
             setLength(false)
         }
     }
-    if(data.password==="" && length===true){
+    if (data.password === "" && length === true) {
         setLength(false)
     }
     if (match) {
