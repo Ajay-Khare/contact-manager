@@ -148,7 +148,7 @@ function Sidebar() {
                 <img src={userimg} alt="" />
               </h1>
               <div className="user_detail">
-                <p>{user ? user.split("@")[0].toUpperCase() : " Ram Darvin"}</p>
+                <p >{user ? user.split("@")[0].toUpperCase() : " Ram Darvin"}</p>
 
                 <p>Super Admin</p>
               </div>

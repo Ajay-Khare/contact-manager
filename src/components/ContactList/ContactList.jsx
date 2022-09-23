@@ -13,6 +13,7 @@ import ImportedFile from "./AfterImport/imported";
 import DeletedFile from "./AfterDelete/delete2";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "./loader/Loader";
 
 
 const ContactList = ({ show }) => {
@@ -28,6 +29,7 @@ const ContactList = ({ show }) => {
     const [deleteArray, setdeleteArray] = useState([]);
     const [allData, setallData] = useState([])
     const [importDone, setimportDone] = useState(false);
+    const [loader, setloader] = useState(true)
     const [appState, changeState] = useState({
         activeObject: 1,
         objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
@@ -62,7 +64,7 @@ const ContactList = ({ show }) => {
             .then((data) => {
                 if (data.message !== "jwt malformed") {
                     setdata(data);
-
+                    setloader(false)
                 } else {
                     navigate("/");
                 }
@@ -407,6 +409,9 @@ const ContactList = ({ show }) => {
                             {/* table data */}
 
                             <tbody>
+                                {
+                                    loader && <Loader />
+                                }
                                 {show == "" && datas.map((user, i) => {
 
                                     return (
