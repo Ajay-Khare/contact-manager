@@ -15,7 +15,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const ContactList = ({ setlist, show }) => {
+const ContactList = ({ show }) => {
     const [showMyModal, setShowMyModel] = useState(false);
     const [showModel, setShowModel] = useState(false);
     const [checked, setChecked] = useState(false);
@@ -26,12 +26,30 @@ const ContactList = ({ setlist, show }) => {
     const [pageNo, setpageNo] = useState(1);
     const [ren, setren] = useState(false);
     const [deleteArray, setdeleteArray] = useState([]);
+    const [allData, setallData] = useState([])
     const [importDone, setimportDone] = useState(false);
     const [appState, changeState] = useState({
         activeObject: 1,
         objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
     });
     const [afterDelete, setafterDelete] = useState(false);
+    useEffect(() => {
+        fetch('https://contactmanager-10x.herokuapp.com/contact/alldata', {
+            method: "get",
+            headers: {
+                accessToken: sessionStorage.getItem("accessToken"),
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.message !== "jwt malformed") {
+                    setallData(data);
+
+                } else {
+                    navigate("/");
+                }
+            });
+    }, [rerender, pageNo, ren]);
 
     useEffect(() => {
         fetch(`https://contactmanager-10x.herokuapp.com/contact/all/?page=${pageNo}`, {
@@ -44,12 +62,15 @@ const ContactList = ({ setlist, show }) => {
             .then((data) => {
                 if (data.message !== "jwt malformed") {
                     setdata(data);
-                    setlist(data);
+
                 } else {
                     navigate("/");
                 }
             });
     }, [rerender, pageNo, ren]);
+
+
+
 
     const handleChange = (e) => {
         if (e.target.checked) {
@@ -387,113 +408,214 @@ const ContactList = ({ setlist, show }) => {
                             {/* table data */}
 
                             <tbody>
-                                {datas
-                                    .filter((val) => {
-                                        if (show === "") {
-                                            return val;
-                                        } else if (val.email.includes(show)) {
-                                            return val;
-                                        }
-                                    })
-                                    .map((user, i) => {
-                                        return (
-                                            <tr key={i}>
-                                                <td className="inputname">
-                                                    <input
-                                                        type="checkbox"
-                                                        className="checkbox"
-                                                        name={user._id}
-                                                        onChange={handleChange}
-                                                        value={user._id}
-                                                        checked={!checked ? user.id : false}
-                                                        onClick={() =>
-                                                            checked ? setChecked(!checked) : null
-                                                        }
-                                                    />
-                                                    <span>
-                                                        {user.name.charAt(0).toUpperCase() +
-                                                            user.name.slice(1)}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {user.designation.charAt(0).toUpperCase() +
-                                                        user.designation.slice(1)}
-                                                </td>
-                                                <td>
-                                                    {user.company.charAt(0).toUpperCase() +
-                                                        user.company.slice(1)}
-                                                </td>
-                                                <td>
-                                                    {user.industry.charAt(0).toUpperCase() +
-                                                        user.industry.slice(1)}
-                                                </td>
+                                {show == "" && datas.map((user, i) => {
 
-                                                <Tippy animation='scale' offset={[-40, 7]} placement="bottom" content={<span style={{ color: "#2DA5FC", fontWeight: 600 }}>{user.email}</span>} theme='light'>
-                                                    <td className="hovering email">{user.email}</td>
-                                                </Tippy>
-                                                <td className="hovering" >{user.mobile}</td>
+                                    return (
+                                        <tr key={i}>
+                                            <td className="inputname">
+                                                <input
+                                                    type="checkbox"
+                                                    className="checkbox"
+                                                    name={user._id}
+                                                    onChange={handleChange}
+                                                    value={user._id}
+                                                    checked={!checked ? user.id : false}
+                                                    onClick={() =>
+                                                        checked ? setChecked(!checked) : null
+                                                    }
+                                                />
+                                                <span>
+                                                    {user.name.charAt(0).toUpperCase() +
+                                                        user.name.slice(1)}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {user.designation.charAt(0).toUpperCase() +
+                                                    user.designation.slice(1)}
+                                            </td>
+                                            <td>
+                                                {user.company.charAt(0).toUpperCase() +
+                                                    user.company.slice(1)}
+                                            </td>
+                                            <td>
+                                                {user.industry.charAt(0).toUpperCase() +
+                                                    user.industry.slice(1)}
+                                            </td>
 
-                                                <td>{user.country}</td>
-                                                <td>
+                                            <Tippy animation='scale' offset={[-40, 7]} placement="bottom" content={<span style={{ color: "#2DA5FC", fontWeight: 600 }}>{user.email}</span>} theme='light'>
+                                                <td className="hovering email">{user.email}</td>
+                                            </Tippy>
+                                            <td className="hovering" >{user.mobile}</td>
 
-                                                    <span style={{ display: "inline", padding: "2px", cursor: "pointer" }} onClick={(e) => deleteSingleData(e)} >
+                                            <td>{user.country}</td>
+                                            <td>
 
-                                                        <svg id={user._id}
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            className="icon icon-tabler icon-tabler-trash icon1"
-                                                            width="20"
-                                                            height="20"
-                                                            viewBox="0 0 24 24"
-                                                            strokeWidth="2"
-                                                            stroke="#F81D1D"
+                                                <span style={{ display: "inline", padding: "2px", cursor: "pointer" }} onClick={(e) => deleteSingleData(e)} >
+
+                                                    <svg id={user._id}
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className="icon icon-tabler icon-tabler-trash icon1"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="2"
+                                                        stroke="#F81D1D"
+                                                        fill="none"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path
+                                                            stroke="none"
+                                                            d="M0 0h24v24H0z"
                                                             fill="none"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        >
-                                                            <path
-                                                                stroke="none"
-                                                                d="M0 0h24v24H0z"
-                                                                fill="none"
-                                                            ></path>
-                                                            <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                                        </svg>
-                                                    </span>
-                                                    <span>
+                                                        ></path>
+                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                    </svg>
+                                                </span>
+                                                <span>
 
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            className="icon icon-tabler icon-tabler-pencil icon2"
-                                                            width="20"
-                                                            height="20"
-                                                            viewBox="0 0 24 24"
-                                                            strokeWidth="2"
-                                                            stroke="#0884FF"
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className="icon icon-tabler icon-tabler-pencil icon2"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="2"
+                                                        stroke="#0884FF"
+                                                        fill="none"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path
+                                                            stroke="none"
+                                                            d="M0 0h24v24H0z"
                                                             fill="none"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        >
-                                                            <path
-                                                                stroke="none"
-                                                                d="M0 0h24v24H0z"
-                                                                fill="none"
-                                                            ></path>
-                                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                            <line
-                                                                x1="13.5"
-                                                                y1="6.5"
-                                                                x2="17.5"
-                                                                y2="10.5"
-                                                            ></line>
-                                                        </svg>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
+                                                        ></path>
+                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                        <line
+                                                            x1="13.5"
+                                                            y1="6.5"
+                                                            x2="17.5"
+                                                            y2="10.5"
+                                                        ></line>
+                                                    </svg>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+
+                                {show.length > 0 && allData.filter((val) => {
+                                    if (val.email.includes(show) && show.length > 0) {
+                                        return val;
+                                    }
+                                }).map((user, i) => {
+
+                                    return (
+                                        <tr key={i}>
+                                            <td className="inputname">
+                                                <input
+                                                    type="checkbox"
+                                                    className="checkbox"
+                                                    name={user._id}
+                                                    onChange={handleChange}
+                                                    value={user._id}
+                                                    checked={!checked ? user.id : false}
+                                                    onClick={() =>
+                                                        checked ? setChecked(!checked) : null
+                                                    }
+                                                />
+                                                <span>
+                                                    {user.name.charAt(0).toUpperCase() +
+                                                        user.name.slice(1)}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {user.designation.charAt(0).toUpperCase() +
+                                                    user.designation.slice(1)}
+                                            </td>
+                                            <td>
+                                                {user.company.charAt(0).toUpperCase() +
+                                                    user.company.slice(1)}
+                                            </td>
+                                            <td>
+                                                {user.industry.charAt(0).toUpperCase() +
+                                                    user.industry.slice(1)}
+                                            </td>
+
+                                            <Tippy animation='scale' offset={[-40, 7]} placement="bottom" content={<span style={{ color: "#2DA5FC", fontWeight: 600 }}>{user.email}</span>} theme='light'>
+                                                <td className="hovering email">{user.email}</td>
+                                            </Tippy>
+                                            <td className="hovering" >{user.mobile}</td>
+
+                                            <td>{user.country}</td>
+                                            <td>
+
+                                                <span style={{ display: "inline", padding: "2px", cursor: "pointer" }} onClick={(e) => deleteSingleData(e)} >
+
+                                                    <svg id={user._id}
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className="icon icon-tabler icon-tabler-trash icon1"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="2"
+                                                        stroke="#F81D1D"
+                                                        fill="none"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path
+                                                            stroke="none"
+                                                            d="M0 0h24v24H0z"
+                                                            fill="none"
+                                                        ></path>
+                                                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                    </svg>
+                                                </span>
+                                                <span>
+
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className="icon icon-tabler icon-tabler-pencil icon2"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="2"
+                                                        stroke="#0884FF"
+                                                        fill="none"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path
+                                                            stroke="none"
+                                                            d="M0 0h24v24H0z"
+                                                            fill="none"
+                                                        ></path>
+                                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                                        <line
+                                                            x1="13.5"
+                                                            y1="6.5"
+                                                            x2="17.5"
+                                                            y2="10.5"
+                                                        ></line>
+                                                    </svg>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+
+
+
                             </tbody>
                         </table>
                     </div>

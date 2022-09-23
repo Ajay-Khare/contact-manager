@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import ContactList from "../ContactList/ContactList";
 
 function Sidebar() {
-  const [list, setlist] = useState([]);
   const [show, setshow] = useState([]);
   const [user, setuser] = useState("");
   const navigate = useNavigate();
@@ -29,19 +28,9 @@ function Sidebar() {
   }, []);
 
   const handleFilter = (e) => {
-    //     // console.log(e.target.value)
-    //     // console.log(list)
     const word = e.target.value;
     setshow(word);
-    // const newFilter = list.filter((user) => {
-    //   return user.email.includes(word);
-    // });
-    // // setlist(newFilter);
-    // if (newFilter) {
-    //   setshow(newFilter);
-    //   setsearch(true);
-    // }
-    // console.log(show    );
+
   };
 
   return (
@@ -166,7 +155,7 @@ function Sidebar() {
             </div>
           </div>
         </header>
-        <ContactList setlist={setlist} list={list} show={show} />
+        <ContactList show={show} />
       </div>
     </main>
   );
