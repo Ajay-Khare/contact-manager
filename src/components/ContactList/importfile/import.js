@@ -57,8 +57,8 @@ function ImportFile({
           .then((res) => res.json())
           .then((datas) => {
             setren(!ren);
-            data = [];
             setimportDone(true);
+            data = [];
           });
       }
     };
