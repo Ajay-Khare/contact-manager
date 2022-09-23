@@ -134,7 +134,6 @@ const ContactList = ({ show }) => {
     };
     const pages = (e) => {
         toggleActive(e.target.innerText - 1);
-        // console.log(e.target.innerText)
     };
     const handlepageIncrement = () => {
         console.log(pageNo);
@@ -415,6 +414,7 @@ const ContactList = ({ show }) => {
                                             <td className="inputname">
                                                 <input
                                                     type="checkbox"
+                                                    style={{ cursor: "pointer" }}
                                                     className="checkbox"
                                                     name={user._id}
                                                     onChange={handleChange}

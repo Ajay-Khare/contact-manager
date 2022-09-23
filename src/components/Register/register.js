@@ -44,8 +44,8 @@ const RegisterPage = () => {
             }).then(res => res.json()).then(data => {
 
                 if (data.message === 'email is already registered') {
-                    setRegistered(!registered)
-                    return toast.error("You are already registered. Please log in.", { position: toast.POSITION.BOTTOM_CENTER })
+                    setRegistered(true)
+                    return toast.error("User is already registered. Please log in.", { position: toast.POSITION.BOTTOM_CENTER })
                 }
                 navigate('/')
             })
@@ -97,7 +97,8 @@ const RegisterPage = () => {
                                 <input type="password" style={styleObj} name="cinfpassword" value={data.cinfpassword} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} className="password" placeholder="Confirm Password" required />
                                 {match && <span style={{ position: "absolute", right: 13, top: 38, fontSize: "12px", color: "tomato" }}>Password not match</span>}
                             </div>
-                            <button>Sign Up</button>
+
+                            <button style={{ cursor: "pointer" }}>Sign Up</button>
 
                         </form>
                         {
