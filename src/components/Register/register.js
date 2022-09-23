@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import upperCircle from "./images/Ellipse-31.png";
 import lowerCircle from "./images/Ellipse-32.png";
 import dots from "./images/Group-695.png";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import "./register.css"
@@ -11,6 +11,7 @@ const RegisterPage = () => {
     const navigate = useNavigate()
     const [match, setMatch] = useState(false)
     const [length, setLength] = useState(false)
+    const [registered, setRegistered] = useState(false)
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -43,7 +44,7 @@ const RegisterPage = () => {
             }).then(res => res.json()).then(data => {
 
                 if (data.message === 'email is already registered') {
-
+                    setRegistered(!registered)
                     return toast.error("You are already registered. Please log in.", { position: toast.POSITION.BOTTOM_CENTER })
                 }
                 navigate('/')
@@ -97,7 +98,16 @@ const RegisterPage = () => {
                                 {match && <span style={{ position: "absolute", right: 13, top: 38, fontSize: "12px", color: "tomato" }}>Password not match</span>}
                             </div>
                             <button>Sign Up</button>
+
                         </form>
+                        {
+                            registered && <div>
+                                <br />
+                                <p style={{ color: "grey" }}>or</p>
+
+                                <Link style={{ color: "#7D8CC4" }} to="/" >Sign in</Link>
+                            </div>
+                        }
                     </div>
                     <div className="rightContainer">
                         <img src={dots} alt="" />
