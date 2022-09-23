@@ -409,7 +409,7 @@ const ContactList = ({ show }) => {
 
                             <tbody>
                                 {show == "" && datas.map((user, i) => {
-                                    console.log(user)
+
                                     return (
                                         <tr key={i}>
                                             <td className="inputname">
@@ -514,7 +514,7 @@ const ContactList = ({ show }) => {
                                         return val;
                                     }
                                 }).map((user, i) => {
-                                    console.log(user)
+
                                     return (
                                         <tr key={i}>
                                             <td className="inputname">
