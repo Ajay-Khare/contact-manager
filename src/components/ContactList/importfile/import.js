@@ -58,7 +58,7 @@ function ImportFile({
           .then((datas) => {
             setren(!ren);
             setimportDone(true);
-            data = [];
+
           });
       }
     };

@@ -47,7 +47,10 @@ const RegisterPage = () => {
                     setRegistered(true)
                     return toast.error("User is already registered. Please log in.", { position: toast.POSITION.BOTTOM_CENTER })
                 }
+                alert('Registered Successfully')
+                toast("Registered Successfully", { position: toast.POSITION.BOTTOM_CENTER })
                 navigate('/')
+
             })
         }
     }

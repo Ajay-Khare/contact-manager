@@ -14,6 +14,7 @@ import DeletedFile from "./AfterDelete/delete2";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "./loader/Loader";
+import ReactPaginate from 'react-paginate';
 
 
 const ContactList = ({ show }) => {
@@ -30,10 +31,7 @@ const ContactList = ({ show }) => {
     const [allData, setallData] = useState([])
     const [importDone, setimportDone] = useState(false);
     const [loader, setloader] = useState(true)
-    const [appState, changeState] = useState({
-        activeObject: 1,
-        objects: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-    });
+
     const [afterDelete, setafterDelete] = useState(false);
     useEffect(() => {
         fetch('https://contactmanager-10x.herokuapp.com/contact/alldata', {
@@ -79,7 +77,7 @@ const ContactList = ({ show }) => {
             const id = e.target.value;
             setdeleteArray([...deleteArray, { id: id }]);
         }
-        console.log(deleteArray);
+
     };
 
     const deleteData = () => {
@@ -121,32 +119,13 @@ const ContactList = ({ show }) => {
                 toast.success('data deleted')
             })
     }
-    function toggleActive(index) {
-        changeState({ ...appState, activeObject: appState.objects[index] });
+
+    const handlepageclick = (data) => {
+        setpageNo(data.selected + 1)
+        console.log(pageNo)
     }
-    function toggleActiveStyles(index) {
-        if (appState.objects[index] === appState.activeObject) {
-            return "anchor active";
-        } else {
-            return "anchor inactive";
-        }
-    }
-    const pagination = (e) => {
-        setpageNo(e.target.innerText);
-    };
-    const pages = (e) => {
-        toggleActive(e.target.innerText - 1);
-    };
-    const handlepageIncrement = () => {
-        console.log(pageNo);
-        if (datas.length !== 0 && datas.length === 10)
-            setpageNo(Number(pageNo) + 1);
-    };
-    const handlepageDecrement = () => {
-        if (Number(pageNo) >= 2) {
-            setpageNo(Number(pageNo) - 1);
-        }
-    };
+
+
 
     return (
         <div className="conatct_container">
@@ -628,54 +607,25 @@ const ContactList = ({ show }) => {
             </div>
             <div className="cont-footer-container">
                 <div className="pages">
-                    <span style={{ cursor: "pointer" }} onClick={handlepageDecrement}>
-                        {" "}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-chevron-left"
-                            width="18"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="black"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <polyline points="15 6 9 12 15 18"></polyline>
-                        </svg>
-                    </span>
+                    <ReactPaginate
+                        previousLabel={'<'}
+                        nextLabel={'>'}
+                        pageCount={Math.ceil(allData.length / 10)}
+                        breakLabel={'...'}
+                        marginPagesDisplayed={3}
+                        pageRangeDisplayed={3}
+                        onPageChange={handlepageclick}
+                        containerClassName={'pagination'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        previousClassName={'page-item'}
+                        previousLinkClassName={'page-link'}
+                        nextClassName={'page-item'}
+                        nextLinkClassName={'page-link'}
+                        breakLinkClassName={'page-link'}
+                        activeClassName={'active'}
 
-                    {appState.objects.map((element, index) => {
-                        return (
-                            <div
-                                style={{ display: "inline-block" }}
-                                key={index}
-                                onClick={(e) => pages(e)}
-                                className={toggleActiveStyles(index)}
-                            >
-                                <span onClick={(e) => pagination(e)}>{element.id}</span>
-                            </div>
-                        );
-                    })}
-                    <span style={{ cursor: "pointer" }} onClick={handlepageIncrement}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-chevron-right"
-                            width="18"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="black"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <polyline points="9 6 15 12 9 18"></polyline>
-                        </svg>
-                    </span>
+                    />
                 </div>
             </div>
             <ToastContainer autoClose={3000} />

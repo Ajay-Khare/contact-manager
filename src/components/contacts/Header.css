@@ -65,10 +65,12 @@
 .second_cont .user_container .user_detail{
     margin-left: 12px;
     font-family: 'Titillium Web', sans-serif;
+
 }
 .second_cont .user_container .user_detail p:nth-child(1){
     font-size: 16px;
     font-weight: 600;
+    margin-bottom: 0px;
 }
 .second_cont .user_container .user_detail p:nth-child(2){
     font-size: 14px;
