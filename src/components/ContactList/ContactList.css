@@ -45,6 +45,15 @@
     text-align: center;
     margin: 5px;
 }
+.cont-header .selectDate .icon-tabler-calendar-event{
+     margin-bottom: 3px;
+}
+.cont-header .selectDate .icon-tabler-chevron-down{
+    margin-bottom: 3px;
+}
+.cont-header .filter .icon-tabler-chevron-down{
+    margin-bottom: 3px;
+}
 .cont-header .delete,
 .import,
 .export {
@@ -63,6 +72,7 @@
 .cont-header .delete span {
     margin-left: 8px;
 }
+
 .cont-header .import span {
     margin-left: 8px;
 }
@@ -170,4 +180,8 @@ tr:first-child {
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
+}
+
+.cont-header .delete .icon-tabler-trash{
+    margin-bottom: 5px;
 }

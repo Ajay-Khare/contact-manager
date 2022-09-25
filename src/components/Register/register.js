@@ -78,7 +78,7 @@ const RegisterPage = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="containers">
                 <img className="upperCornerCircle" src={upperCircle} alt="" />
                 <div className="main">
                     <div className="leftContainer">
